@@ -1,0 +1,76 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:notatnik"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        x:Class="notatnik.MainWindow"
+        Title="Notatnik"
+        Width="800" Height="600"
+        MinWidth="500" MinHeight="400">
+
+    <Grid RowDefinitions="Auto,*" Margin="16">
+
+        <!-- Górna część: formularz dodawania notatki -->
+        <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,16">
+            <TextBlock Text="Nowa notatka" FontSize="20" FontWeight="Bold"/>
+
+            <TextBox x:Name="TitleBox"
+                     PlaceholderText="Tytuł notatki..."
+                     FontSize="14"/>
+
+            <TextBox x:Name="ContentBox"
+                     PlaceholderText="Treść notatki..."
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Height="120"
+                     FontSize="14"/>
+
+            <Button x:Name="SaveButton"
+                    Content="💾  Zapisz notatkę"
+                    Click="SaveButton_Click"
+                    HorizontalAlignment="Left"
+                    Padding="20,8"
+                    FontSize="14"/>
+        </StackPanel>
+
+        <!-- Dolna część: lista zapisanych notatek -->
+        <Border Grid.Row="1"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="4"
+                Padding="8">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top"
+                           Text="Zapisane notatki"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,8"/>
+
+                <ScrollViewer>
+                    <ItemsControl x:Name="NotesList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="local:NoteItem">
+                                <Border BorderBrush="LightGray"
+                                        BorderThickness="0,0,0,1"
+                                        Padding="8"
+                                        Margin="0,0,0,4">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="{Binding Header}"
+                                                   FontWeight="SemiBold"
+                                                   FontSize="14"/>
+                                        <TextBlock Text="{Binding Body}"
+                                                   TextWrapping="Wrap"
+                                                   Foreground="Gray"
+                                                   FontSize="13"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+    </Grid>
+</Window>
