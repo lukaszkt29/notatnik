@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:notatnik"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="notatnik.MainWindow"
+        Title="Notatnik"
+        Width="800" Height="550"
+        MinWidth="600" MinHeight="400">
+
+    <Grid RowDefinitions="Auto,*,Auto,*" Margin="16">
+
+        <!-- Tytuł -->
+        <TextBox x:Name="TitleBox"
+                 PlaceholderText="Tytuł notatki..."
+                 Margin="0,0,0,8"
+                 Grid.Row="0" />
+
+        <!-- Treść -->
+        <TextBox x:Name="ContentBox"
+                 PlaceholderText="Treść notatki..."
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Margin="0,0,0,8"
+                 Grid.Row="1" />
+
+        <!-- Przycisk zapisu + przycisk usuwania -->
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,8" Spacing="8">
+            <Button x:Name="SaveButton"
+                    Content="💾 Zapisz notatkę"
+                    Click="OnSaveClick"
+                    Classes="accent"
+                    HorizontalAlignment="Left" />
+            <Button x:Name="DeleteButton"
+                    Content="🗑 Usuń zaznaczoną"
+                    Click="OnDeleteClick"
+                    HorizontalAlignment="Left" />
+        </StackPanel>
+
+        <!-- Lista zapisanych notatek -->
+        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" CornerRadius="4">
+            <ListBox x:Name="NotesList"
+                     SelectionChanged="OnNoteSelected">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="local:Note">
+                        <StackPanel Margin="4">
+                            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Preview}" Foreground="Gray" FontSize="12" />
+                            <TextBlock Text="{Binding DateText}" Foreground="DimGray" FontSize="10" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+    </Grid>
+</Window>
